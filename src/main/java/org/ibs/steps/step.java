@@ -1,4 +1,4 @@
-package steps;
+package org.ibs.steps;
 
 
 import io.cucumber.java.ru.*;
