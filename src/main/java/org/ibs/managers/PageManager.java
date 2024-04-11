@@ -1,4 +1,4 @@
-package managers;
+package org.ibs.managers;
 
 import org.ibs.pages.FoodPage;
 import org.ibs.pages.HomePage;

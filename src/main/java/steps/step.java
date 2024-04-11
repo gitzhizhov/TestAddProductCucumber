@@ -1,73 +1,108 @@
-package org.ibs.steps;
+package steps;
 
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.ru.И;
-import org.ibs.managers.ConnectionManager;
-import org.ibs.managers.DisplayResult;
-import org.ibs.managers.RequestsManager;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import io.cucumber.java.ru.*;
+import org.ibs.managers.DriverManager;
+import org.ibs.managers.PageManager;
+
+import java.time.Duration;
 
 public class step {
 
-    private static final String connString = "jdbc:h2:tcp://localhost:9092/mem:testdb";
-    private static final String login = "user";
-    private static final String password = "pass";
-
-    private static final ConnectionManager connectionManager = ConnectionManager.getConnectionManager();
-    Connection connection = connectionManager.getConnection(connString, login, password);
-    protected static RequestsManager rm = RequestsManager.getRequestsManager();
-    protected static DisplayResult displayResult = DisplayResult.getDisplayResult();
+    private static final PageManager app = PageManager.getPageManager();
+    private static final DriverManager driverManager = DriverManager.getDriverManager();
 
 
-    @И("подключение к БД")
-    public void connectToDB() throws SQLException {
-        connectionManager.getConnection(connString, login, password);
+    @И("Открыть страинице по адресу {}")
+    public void openHomePage(String homePageURL) {
+        driverManager.getDriver().get(homePageURL);
+        driverManager.getDriver().manage().window().maximize(); // обязательно делаем максимальное окно
+        // не явные ожидания
+        driverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driverManager.getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
     }
 
-    @И("добавляем товар {}, {}, {}")
-    public void addRow(String name, String type, String exotic) {
-        String request = "INSERT INTO food(food_name, food_type, food_exotic) values (?, ?, ?)";
-        String nameFood = name;
-        String typeFood = type;
-        String ex = exotic;
-        boolean isExotic;
-        if (ex.equals("TRUE")) isExotic = true; else isExotic = false;
-        rm.insertPrepStatement(request, nameFood, typeFood, isExotic);
+    @И("нажимаем на строку Песочница")
+    public void clickSandBox() {
+        app.getHomePage().clickButtonSandBox();
     }
 
-    @И("проверяем, что находится в таблице")
-    public void simpleSelect() {
-        ResultSet result = rm.selectRequest("select * from food");
-        printTab(result);
-
+    @И("в выпадающем списка нажимаем на Товары")
+    public void clickProduct() {
+        app.getHomePage().clickButtonProduct();
+        checkOpenFoodPage();
     }
 
-    @И("удаляем товар {}")
-    public void deleteRow(String name) {
-        String request = "DELETE FROM food WHERE food_name = ?";
-        String nameFood = name;
-        rm.deleteRowPS(request,nameFood);
+    @И("видим список товаров")
+    public void viewProduct() {
+        //
     }
 
-    @И("выводим результат")
-    public void printTab(ResultSet set) {
-        try {
-            displayResult.printResult(set);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    /**
+     * проверка на открытие стриницы с товарами
+     */
+    public void checkOpenFoodPage() {
+        app.getFoodPage().checkOpenFoodPage();
+    }
+
+    @И("нажимаем на кнопку Добавить")
+    public void clickAdd() {
+        app.getFoodPage().clickBtnAdd();
+    }
+
+    @И("открывается окно Добавления товара")
+    public void checkAddProd() {
+        //
+    }
+
+    @И("кликаем по полю Наименование")
+    public void clickFieldName() {
+        app.getFoodPage().clickFieldName();
+    }
+
+    @И("вводим название {}")
+    public void fillField(String name) {
+        app.getFoodPage().fillField(name);
+    }
+
+    @И("кликаем по выпадающему списку Тип")
+    public void clickListProduct() {
+        app.getFoodPage().clickButtonProduct();
+    }
+
+    @И("выбираем тип {}")
+    public void setSelectType(String typeFood) {
+        typeFood.toLowerCase();
+        if (typeFood.equals("овощ")) {
+            app.getFoodPage().setTypeVEGETABLE();
+        }
+        if (typeFood.equals("фрукт")) {
+            app.getFoodPage().setTypeFruit();
         }
     }
-    @И("закрыть соединение к БД")
-    public void quitConnect() {
-        connectionManager.quitConnection();
+
+    @И("кликаем по чек-боксу Экзотический")
+    public void setCheckBoxExotic() {
+        app.getFoodPage().setCheckBoxExotic(true);
     }
 
-    public void передадим_в_метод_datatable(DataTable dataTable) {
-        for (int i = 0; i < dataTable.width(); i++) {
-            System.out.println(dataTable.column(i));
-        }
+    @И("нажимаем на кнопку Сохранить")
+    public void ckickBtnSave() {
+        app.getFoodPage().clickButtonSave();
+    }
+
+    @И("проверяем, что товар добавился в список товаров")
+    public void viewProd1() {
+        //
+    }
+
+    @И("проверем, что добавленный товар удалился")
+    public void viewProd2() {
+        //
+    }
+
+    @И("в выпадающес списке нажимаем Сброс данных")
+    public void clickReset() {
+        app.getHomePage().clickButtonReset();
     }
 }

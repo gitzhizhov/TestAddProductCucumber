@@ -1,4 +1,4 @@
-package pages;
+package org.ibs.pages;
 
 import org.ibs.managers.DriverManager;
 import org.ibs.managers.PageManager;

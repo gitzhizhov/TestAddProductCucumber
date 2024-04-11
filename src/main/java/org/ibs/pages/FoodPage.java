@@ -1,6 +1,8 @@
-package pages;
+package org.ibs.pages;
 
 import org.ibs.managers.DriverManager;
+
+
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -159,9 +161,6 @@ public class FoodPage extends BasePage {
         return this;
     }
 //    public FoodPage setSelectType(String value) {
-//        sleep();
-//        System.out.println(value);
-//        sleep();
 //        switch (value) {
 //            //case ("Овощ") : selectTypeProd.selectByValue("VEGETABLE");
 //            case "Овощ" : setTypeVEGETABLE();
