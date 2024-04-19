@@ -13,7 +13,7 @@ public class step {
     private static final DriverManager driverManager = DriverManager.getDriverManager();
 
 
-    @И("Открыть страинице по адресу {}")
+    @И("Открыть странице по адресу {}")
     public void openHomePage(String homePageURL) {
         driverManager.getDriver().get(homePageURL);
         driverManager.getDriver().manage().window().maximize(); // обязательно делаем максимальное окно
