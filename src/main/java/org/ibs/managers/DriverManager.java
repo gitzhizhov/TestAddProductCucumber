@@ -41,14 +41,15 @@ public class DriverManager {
      */
     public WebDriver getDriver(){
         if (driver == null) {
-            initDriver();
+            //initDriver();
+            initDriverForJenkins();
         }
         return driver;
     }
 
-    public WebDriver getDriver(String url){
+    public WebDriver getDriverJenkins(){
         if (driver == null) {
-            initDriverForJenkins(url);
+            initDriverForJenkins();
         }
         return driver;
     }
@@ -74,14 +75,14 @@ public class DriverManager {
     /**
      * Метод инициализации для jenkins
      */
-    private void  initDriverForJenkins(String url){
+    private void  initDriverForJenkins(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("109.0");
         capabilities.setCapability("enableVNC",true);
         capabilities.setCapability("enableVideo",false);
         try {
-            driver = new RemoteWebDriver(URI.create(url).toURL(),capabilities);
+            driver = new RemoteWebDriver(URI.create("http://149.154.71.152:4444/wd/hub").toURL(),capabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
