@@ -41,15 +41,13 @@ public class DriverManager {
      */
     public WebDriver getDriver(){
         if (driver == null) {
-            //initDriver();
-            initDriverForJenkins();
+            initDriver();
         }
         return driver;
     }
 
     public WebDriver getDriver(String url){
         if (driver == null) {
-            //initDriver();
             initDriverForJenkins(url);
         }
         return driver;
