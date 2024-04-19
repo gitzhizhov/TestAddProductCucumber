@@ -2,6 +2,11 @@ package org.ibs.managers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URI;
 
 /**
  * Класс для управления веб драйвера
@@ -36,7 +41,16 @@ public class DriverManager {
      */
     public WebDriver getDriver(){
         if (driver == null) {
-            initDriver();
+            //initDriver();
+            initDriverForJenkins();
+        }
+        return driver;
+    }
+
+    public WebDriver getDriver(String url){
+        if (driver == null) {
+            //initDriver();
+            initDriverForJenkins(url);
         }
         return driver;
     }
@@ -58,4 +72,22 @@ public class DriverManager {
         System.setProperty("webdriver.chromedriver.driver", pathToChromeDriver);
         driver = new ChromeDriver();
     }
+
+    /**
+     * Метод инициализации для jenkins
+     */
+    private void  initDriverForJenkins(String url){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("109.0");
+        capabilities.setCapability("enableVNC",true);
+        capabilities.setCapability("enableVideo",false);
+        try {
+            driver = new RemoteWebDriver(URI.create(url).toURL(),capabilities);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

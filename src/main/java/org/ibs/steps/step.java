@@ -15,7 +15,7 @@ public class step {
 
     @И("Открыть странице по адресу {}")
     public void openHomePage(String homePageURL) {
-        driverManager.getDriver().get(homePageURL);
+        driverManager.getDriver(homePageURL);
         driverManager.getDriver().manage().window().maximize(); // обязательно делаем максимальное окно
         // не явные ожидания
         driverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
