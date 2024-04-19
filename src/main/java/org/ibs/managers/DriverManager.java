@@ -81,7 +81,7 @@ public class DriverManager {
         capabilities.setVersion("109.0");
 //        capabilities.setCapability("enableVNC",true);
 //        capabilities.setCapability("enableVideo",false);
-        capabilities.setCapability("", Map.<String, Object>of(
+        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC",true,
                 "enableVideo",false
         ));
