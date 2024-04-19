@@ -105,4 +105,10 @@ public class step {
     public void clickReset() {
         app.getHomePage().clickButtonReset();
     }
+
+    @И("закрываем окно браузера")
+    public void  closePage() {
+        driverManager.quitDriver();
+    }
+
 }

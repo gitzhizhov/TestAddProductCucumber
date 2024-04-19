@@ -41,8 +41,7 @@ public class DriverManager {
      */
     public WebDriver getDriver(){
         if (driver == null) {
-            //initDriver();
-            initDriverForJenkins();
+            initDriver();
         }
         return driver;
     }
