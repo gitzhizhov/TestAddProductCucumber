@@ -1,9 +1,6 @@
 package runner;
 
-import org.junit.platform.suite.api.ConfigurationParameter;
-import org.junit.platform.suite.api.ConfigurationParameters;
-import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.*;
 
 import static io.cucumber.core.options.Constants.*;
 
