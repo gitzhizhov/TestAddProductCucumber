@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.Map;
 
 /**
  * Класс для управления веб драйвера
@@ -78,8 +79,12 @@ public class DriverManager {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("109.0");
-        capabilities.setCapability("enableVNC",true);
-        capabilities.setCapability("enableVideo",false);
+//        capabilities.setCapability("enableVNC",true);
+//        capabilities.setCapability("enableVideo",false);
+        capabilities.setCapability("", Map.<String, Object>of(
+                "enableVNC",true,
+                "enableVideo",false
+        ));
         try {
             driver = new RemoteWebDriver(URI.create("http://149.154.71.152:4444/wd/hub").toURL(),capabilities);
         } catch (MalformedURLException e) {
