@@ -77,8 +77,8 @@ public class DriverManager {
      */
     private void  initDriverForJenkins(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "UNKNOWN");
-        capabilities.setCapability("browserVersion", "");
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("109.0");
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC",true,
                 "enableVideo",false
